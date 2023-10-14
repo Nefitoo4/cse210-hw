@@ -4,6 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
+        //adding the fraction class
         Fraction f1 = new Fraction();
         Console.WriteLine(f1.GetFractionString());
         Console.WriteLine(f1.GetDecimalValue());
