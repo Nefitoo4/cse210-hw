@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -56,14 +55,12 @@ public class Program
             Console.WriteLine("Tell something new you did learn today.");
         }
     }
-=======
-using System;
+}
 
-class Program
+public class Program
 {
     static void Main(string[] args)
     {
         Console.WriteLine("Hello Develop02 World!");
     }
->>>>>>> cc9009385e1f408a3d06cc8dcb5d2d364a3ef2b5
 }
