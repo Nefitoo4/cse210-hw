@@ -1,37 +1,46 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Mindfulness_Program
 {
-    public class Menu
+    public class BreathingActivity : Activity
     {
-   
-        private List<string> menu = new List<string>()
+        public BreathingActivity(string ActivityName, string Description) : base(ActivityName, Description)
         {
-            "  1. Start Breathing Activity",
-            "  2. Start Reflecting Activity",
-            "  3. Start listing Activity",
-            "  4. Quit"
-        };
-
-        public void DisplayMenu()
-        {
-            Console.Clear();
-            Console.WriteLine("Menu options");
-            Console.WriteLine();
-
-            foreach (string item in menu)
-            {
-                Console.WriteLine(item);
-            }
-
-            Console.WriteLine();
-            Console.WriteLine("Select a choise from the menu");
+            
         }
 
+        private void BreatheIn()
+        {
+            Console.Write("Breathe in...");
+            CountDown(4);
+            Console.WriteLine();
+        }
+
+        private void BreatheOut()
+        {
+             Console.Write("Now Breathe out...");
+            CountDown(6);
+            Console.WriteLine();
+        }
+
+        public void Run()
+        {
+            Prepare();
+            GetReady();
+
+            DateTime CurrentTime = DateTime.Now;
+            DateTime FutureTime = CurrentTime.AddSeconds(_duration);
+            do
+            {
+                Console.WriteLine();
+                BreatheIn();
+                BreatheOut();
+            } while (DateTime.Now < FutureTime);
+
+            Ending();
+        }
     }
 }
