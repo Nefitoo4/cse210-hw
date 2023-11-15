@@ -4,7 +4,7 @@ namespace classes
     {
         static void Main(string[]args)
         {
-            var john = new Person();
+            Person john = new Person();
             john.FirstName = "john";
             john.LastName = "Smith";
             john.Introduce();
