@@ -1,12 +1,12 @@
 using System;
 
-namespace HelloWorld
-{
     class Program
     {
         static void Main(string[]args)
         {
-            Console.WriteLine("Hello World");
+            var john = new Person();
+            john.FirstName = "john";
+            john.LastName = "Smith";
+            john.Introduce();
         }
     }
-}
