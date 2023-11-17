@@ -1,16 +1,21 @@
-public class WritingAssignment : Assignment
+using System;
+
+namespace Learning04
 {
-    private string _title;
-
-    public WritingAssignment(string studentName, string topic, string title) : base(studentName, topic)
+    public class WritingAssignment : Assignment
     {
-        _title = title;
-    }
+        private string _title;
 
-    public string GetWritingInformation()
-    {
-        string studentName = GetstudentName();
+        public WritingAssignment(string studentName, string topic, string title) : base(studentName, topic)
+        {
+            _title = title;
+        }
 
-        return $"{_title} by {studentName}";
+        public string GetWritingInformation()
+        {
+            string studentName = GetstudentName();
+
+            return $"{_title} by {studentName}";
+        }
     }
 }

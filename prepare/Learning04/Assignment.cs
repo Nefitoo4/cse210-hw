@@ -1,26 +1,31 @@
-public class Assignment
+using System;
+
+namespace Learning04
 {
-    private string _studentName;
-    private string _topic;
-
-    public Assignment(string studentName, string topic)
+    public class Assignment
     {
-        _studentName = studentName;
-        _topic = topic;
-    }
+        private string _studentName;
+        private string _topic;
 
-    public string GetstudentName()
-    {
-        return _studentName;
-    }
+        public Assignment(string studentName, string topic)
+        {
+            _studentName = studentName;
+            _topic = topic;
+        }
 
-    public string GetTopic()
-    {
-        return _topic;
-    }
+        public string GetstudentName()
+        {
+            return _studentName;
+        }
 
-    public string GetSummary()
-    {
-        return _studentName + " _ " + _topic;
+        public string GetTopic()
+        {
+            return _topic;
+        }
+
+        public string GetSummary()
+        {
+            return _studentName + " _ " + _topic;
+        }
     }
 }
