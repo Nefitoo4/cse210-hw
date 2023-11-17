@@ -1,15 +1,28 @@
-//using System;
+using System;
 
-//class Program
-//{
-//    static void Main(string[] args)
-//    {
-//        //Ask the user for their name
-//        Console.WriteLine("What is your first name?");
-//        string name = Console.ReadLine();
-//        Console.WriteLine("What is your last name?");
-//        string lastname = Console.ReadLine();
+namespace Arrays
+{
 
-//        Console.WriteLine($"Your name is {lastname}, {name} {lastname}.");
-//    }
-//}
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var numbers = new int[3];
+            numbers[0] = 1;
+
+            Console.WriteLine(numbers[0]);
+            Console.WriteLine(numbers[1]);
+            Console.WriteLine(numbers[2]);
+
+            var flags = new bool[3];
+            flags[0] = true;
+
+            Console.WriteLine(flags[0]);
+            Console.WriteLine(flags[1]);
+            Console.WriteLine(flags[2]);
+
+            var names = new string[3] {"jack", "john", "Mary"};
+
+        }
+    }
+}
