@@ -1,28 +1,31 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
-namespace Arrays
-{
-
+namespace Conditionals
+{    
     class Program
     {
         static void Main(string[] args)
         {
-            var numbers = new int[3];
-            numbers[0] = 1;
+            Console.WriteLine("Please enter the speed limit: ");
+            int SpeedLimit = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Please enter the speed of the car: ");
+            int CarSpeed = Convert.ToInt32(Console.ReadLine());
+            int DemeritPoints = (CarSpeed - SpeedLimit) / 5;
 
-            Console.WriteLine(numbers[0]);
-            Console.WriteLine(numbers[1]);
-            Console.WriteLine(numbers[2]);
-
-            var flags = new bool[3];
-            flags[0] = true;
-
-            Console.WriteLine(flags[0]);
-            Console.WriteLine(flags[1]);
-            Console.WriteLine(flags[2]);
-
-            var names = new string[3] {"jack", "john", "Mary"};
-
+            if (CarSpeed < SpeedLimit)
+            {
+                Console.WriteLine("Ok.");
+            }
+            else if (DemeritPoints > 12)
+            {
+                Console.WriteLine($"{DemeritPoints} Demerit Points - License Suspended.");
+            }
+            else
+            {
+                Console.WriteLine($"{DemeritPoints} Demerit points.");
+            }
         }
     }
 }
