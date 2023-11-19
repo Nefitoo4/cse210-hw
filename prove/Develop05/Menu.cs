@@ -2,34 +2,31 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml.Serialization;
+using System.Linq;
 
 namespace Develop05
 {
     public class Menu
     {
-        private List<string> menu = new List<string>()
+        public static int ShowMenu()
         {
-            " 1. Create a New Goal",
-            " 2. List Goals",
-            " 3. Save Goals",
-            " 4. Load Goals",
-            " 5. Records Events",
-            " 6. Quit"
-        };
+            Console.WriteLine("Menu Options:");
+            Console.WriteLine("1.Create a new goal");
+            Console.WriteLine("2.List Goals");
+            Console.WriteLine("3.Save Goals");
+            Console.WriteLine("4.Load Goals");
+            Console.WriteLine("5.Record Events");
+            Console.WriteLine("6.Quit");
 
-        public void DisplayMenu()
-        {
-            Console.Clear();
-            Console.WriteLine("Menu Option:");
-            Console.WriteLine();
-
-            foreach (string item in menu)
+            int choice;
+            while (!int.TryParse(Console.ReadLine(), out choice))
             {
-                Console.WriteLine(item);
+                Console.WriteLine("Invalid input. Please enter a number.");
+                Console.WriteLine("Select a choice from the menu: ");
             }
 
-            Console.WriteLine();
-            Console.WriteLine("Select the choice from the menu: ");
+            return choice;
         }
     }
 }

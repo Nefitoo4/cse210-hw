@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace Develop05
 {
-    class SimpleGoal : Goal
+    class EternalGoal : Goal
     {
-        public SimpleGoal(string goalDescription, int goalValue) : base(goalDescription, goalValue)
+        public EternalGoal(string goalDescription, int goalValue) : base(goalDescription, goalValue)
         {
         }
 
