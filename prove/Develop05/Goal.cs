@@ -16,9 +16,9 @@ namespace Develop05
 
     public Goal(string goalDescription, int goalValue)
     {
-        goalDescription = goalDescription;
-        Completed = false;
-        GoalValue = goalValue;
+        _goalDescription = goalDescription;
+        _Completed = false;
+        _GoalValue = goalValue;
     }
 
     public virtual void Display()
