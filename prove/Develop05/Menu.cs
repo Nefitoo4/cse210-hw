@@ -7,7 +7,7 @@ namespace Develop05
 {
     public class Menu
     {
-        private list<string> menu = new List<string>()
+        private List<string> menu = new List<string>()
         {
             " 1. Create a New Goal",
             " 2. List Goals",
