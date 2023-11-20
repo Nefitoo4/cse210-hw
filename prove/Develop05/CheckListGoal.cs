@@ -6,32 +6,33 @@ using System.Linq;
 
 namespace Develop05
 {
-    class CheckListGoal : Goal
+    class ChecklistGoal : Goal
     {
-        public int RequiredEvent {get; set;}
-        private int completedEvents;
+        public int RequiredEvents { get; set; }
+        public int CompletedEvents { get; set; }
 
-        public CheckListGoal(string goalDescription, int goalValue, int requiredEvents) : base(goalDescription, goalValue)
+        public ChecklistGoal(string goalDescription, int goalValue, int requiredEvents)
+            : base(goalDescription, goalValue)
         {
-            _requiredEvents = requiredEvents;
-            completedEvents = 0;
+            RequiredEvents = requiredEvents;
+            CompletedEvents = 0;
         }
 
         public override void Display()
         {
             base.Display();
-            Console.WriteLine($"Completed {completedEvents} / {requiredEvents} times");
+            Console.WriteLine($" Completed {CompletedEvents}/{RequiredEvents} times");
         }
 
         public override void RecordEvent()
         {
-            base. RecordEvent();
-            completedEvents++;
+            base.RecordEvent();
+            CompletedEvents++;
 
-            if (completedEvents == RequiredEvents)
+            if (CompletedEvents == RequiredEvents)
             {
-                Console.WriteLine($"Bonus achived for completing {GoalDescription} {RequiredEvents} times! Bonus: {GoalValue * 2} points.");
-                GoalValue *= 2; //Double the points for reaching the checklist goal
+                Console.WriteLine($"Bonus achieved for completing {GoalDescription} {RequiredEvents} times! Bonus: {GoalValue * 2} points");
+                GoalValue *= 2; // Double the points for reaching the checklist goal
             }
         }
     }

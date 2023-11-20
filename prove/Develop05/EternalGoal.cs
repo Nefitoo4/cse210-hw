@@ -8,7 +8,8 @@ namespace Develop05
 {
     class EternalGoal : Goal
     {
-        public EternalGoal(string goalDescription, int goalValue) : base(goalDescription, goalValue)
+        public EternalGoal(string goalDescription, int goalValue)
+            : base(goalDescription, goalValue)
         {
         }
 

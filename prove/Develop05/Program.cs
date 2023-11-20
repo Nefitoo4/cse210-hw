@@ -8,55 +8,64 @@ using System.Linq;
 
 class Program
 {
+    private List<Goal> goals = new List<Goal>();
+    private int userScore = 0;
 
-    static void Main(string[] args)
+    public void CreateNewGoal()
     {
-        private List<Goal>goals = new List<Goal>();
-        private int userScore = 0;
+        Console.Write("Enter goal description: ");
+        string goalDescription = Console.ReadLine();
 
-        public void CreateNewGoal()
+        Console.Write("Choose goal type (1 for Simple, 2 for Eternal, 3 for Checklist): ");
+        if (int.TryParse(Console.ReadLine(), out int goalType))
         {
-            Console.WriteLine("What is a short description of it? ");
-            string goalDescription = Console.ReadLine();
-
-            Console.Write("Choose goal type (1.Simple, 2.Eternal, 3.CheckList): ");
-            if (int.TryParse(Console.ReadLine(), out int goalType))
+            Console.Write("Enter points for this goal: ");
+            if (int.TryParse(Console.ReadLine(), out int goalValue))
             {
-                Console.Write("What is the amount of points associated with this goal? ");
-                if (int.TryParse(Console.ReadLine(), out int goalValue))
+                Goal newGoal;
+
+                switch (goalType)
                 {
-                    Goal newGoal;
-
-                    switch (goalType)
-                    {
-                        case 1:
-                            newGoal = new SimpleGoal(goalDescription, goalValue);
-                            break;
-                        case 2:
-                            newGoal = new EternalGoal(goalDescription, goalValue);
-                            break;
-                        case 3:
-                            Console.Write("Enter required Events for checklist goal: ");
-                            if (int.TryParse(Console.ReadLine(), out int requiredEvents))
-                            {
-                                newGoal = new CheckListGoal(goalDescription, goalValue, requiredEvents);
-                            }
-                            else
-                            {
-                                Console.WriteLine("Invalid input for required events. Goal creation failed.");
-                                return;
-                            }
-
-                            goals.Add(newGoal);
-                            Console.WriteLine("Goal created succesfully.");  
-                    }
+                    case 1:
+                        newGoal = new SimpleGoal(goalDescription, goalValue);
+                        break;
+                    case 2:
+                        newGoal = new EternalGoal(goalDescription, goalValue);
+                        break;
+                    case 3:
+                        Console.Write("Enter required events for the checklist goal: ");
+                        if (int.TryParse(Console.ReadLine(), out int requiredEvents))
+                        {
+                            newGoal = new ChecklistGoal(goalDescription, goalValue, requiredEvents);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input for required events. Goal creation failed.");
+                            return;
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Invalid goal type. Goal creation failed.");
+                        return;
                 }
+
+                goals.Add(newGoal);
+                Console.WriteLine("Goal created successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid input for points. Goal creation failed.");
             }
         }
-        public void RecordEvent()
+        else
         {
-            Console.WriteLine("\nRecording an event for a goal:");
+            Console.WriteLine("Invalid input for goal type. Goal creation failed.");
         }
+    }
+
+    public void RecordEvent()
+    {
+        Console.WriteLine("\nRecording an event for a goal:");
 
         if (goals.Count == 0)
         {
@@ -148,7 +157,31 @@ class Program
                     }
                 }
             }
+
+            if (File.Exists("goals.txt"))
+            {
+                using (StreamReader reader = new StreamReader("goals.txt"))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        string[] goalData = reader.ReadLine().Split(',');
+
+                        switch (goalData[0])
+                        {
+                            case "SimpleGoal":
+                                goals.Add(new SimpleGoal(goalData[1], int.Parse(goalData[3])) { Completed = bool.Parse(goalData[2]) });
+                                break;
+                            case "EternalGoal":
+                                goals.Add(new EternalGoal(goalData[1], int.Parse(goalData[3])) { Completed = bool.Parse(goalData[2]) });
+                                break;
+                            case "ChecklistGoal":
+                                int requiredEvents = int.Parse(goalData[4]);
+                                int completedEvents = int.Parse(goalData[5]);
+                                goals.Add
+                        };
+                    }
+                }
+            }
         }
- 
     }
 }

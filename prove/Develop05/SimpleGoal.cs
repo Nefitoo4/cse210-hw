@@ -8,7 +8,8 @@ namespace Develop05
 {
     class SimpleGoal : Goal
     {
-        public SimpleGoal(string goalDescription, int goalValue) : base(goalDescription, goalValue)
+        public SimpleGoal(string goalDescription, int goalValue)
+            : base(goalDescription, goalValue)
         {
         }
 
