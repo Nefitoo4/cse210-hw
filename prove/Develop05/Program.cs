@@ -6,6 +6,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Net.Quic;
 using System.Linq;
 
+namespace Develop05
+{
 class Program
 {
     private List<Goal> goals = new List<Goal>();
@@ -154,10 +156,17 @@ class Program
                                 CompletedEvents = completedEvents
                             });
                             break;
+                        default:
+                            Console.WriteLine("Unknown goal type encountered during loading. Skipping...");
+                            break;
                     }
                 }
             }
-
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while loading goals and score: {ex.Message}");
+        }
             if (File.Exists("goals.txt"))
             {
                 using (StreamReader reader = new StreamReader("goals.txt"))
@@ -177,7 +186,7 @@ class Program
                             case "ChecklistGoal":
                                 int requiredEvents = int.Parse(goalData[4]);
                                 int completedEvents = int.Parse(goalData[5]);
-                                goals.Add
+                                break;
                         };
                     }
                 }
