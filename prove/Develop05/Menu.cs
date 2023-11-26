@@ -20,11 +20,10 @@ namespace Develop05
             Console.WriteLine("6.Quit");
 
             int choice;
-            while (!int.TryParse(Console.ReadLine(), out choice))
+            do
             {
-                Console.WriteLine("Invalid input. Please enter a number.");
                 Console.WriteLine("Select a choice from the menu: ");
-            }
+            }while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 6);
 
             return choice;
         }

@@ -6,16 +6,28 @@ using System.Linq;
 
 namespace Develop05
 {
-    class SimpleGoal : Goal
+    public class SimpleGoal : Goal
     {
-        public SimpleGoal(string goalDescription, int goalValue)
-            : base(goalDescription, goalValue)
+        private int points;
+        public SimpleGoal(string description, int points) : base (description)
         {
+            this.points = points;
         }
 
-        public override void RecordEvent()
+        public override int RecordEvent()
         {
-            base.RecordEvent();
+            if(!Completed)
+            {
+                Completed = true;
+                return points;
+            }
+
+            return 0;
+        }
+
+        public override void Display()
+        {
+            Console.WriteLine($"[] {GoalDescription} - {points} points");
         }
     }
 }

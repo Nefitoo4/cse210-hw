@@ -6,34 +6,44 @@ using System.Linq;
 
 namespace Develop05
 {
-    class ChecklistGoal : Goal
+    public class ChecklistGoal : Goal
     {
-        public int RequiredEvents { get; set; }
-        public int CompletedEvents { get; set; }
-
-        public ChecklistGoal(string goalDescription, int goalValue, int requiredEvents)
-            : base(goalDescription, goalValue)
+        private int pointsPerEvent;
+        public int requiredEvents;
+        public int completedEvents;
+        public ChecklistGoal(string description, int pointsPerEvent, int requiredEvents)
+            : base(description) // Call the base class constructor with the description parameter
         {
-            RequiredEvents = requiredEvents;
-            CompletedEvents = 0;
+            this.pointsPerEvent = pointsPerEvent;
+            this.requiredEvents = requiredEvents;
+            this.completedEvents = 0;
+        }
+
+        public override int RecordEvent()
+        {
+            if(!Completed)
+            {
+                completedEvents++;
+                if(completedEvents == requiredEvents)
+                {
+                    Completed = true;
+                    return pointsPerEvent + CalculateBonus();
+                }
+
+                return pointsPerEvent;
+            }
+
+            return 0;
+        }
+        private int CalculateBonus()
+        {
+            //adding the bonus calculation here
+            return 500;
         }
 
         public override void Display()
         {
-            base.Display();
-            Console.WriteLine($" Completed {CompletedEvents}/{RequiredEvents} times");
-        }
-
-        public override void RecordEvent()
-        {
-            base.RecordEvent();
-            CompletedEvents++;
-
-            if (CompletedEvents == RequiredEvents)
-            {
-                Console.WriteLine($"Bonus achieved for completing {GoalDescription} {RequiredEvents} times! Bonus: {GoalValue * 2} points");
-                GoalValue *= 2; // Double the points for reaching the checklist goal
-            }
+            Console.WriteLine($"[] {GoalDescription} - {pointsPerEvent} points per event, {completedEvents}/{requiredEvents} completed");
         }
     }
 }

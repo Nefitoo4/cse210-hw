@@ -7,28 +7,30 @@ using System.Runtime.CompilerServices;
 
 namespace Develop05
 {
-    abstract class Goal
+    public abstract class Goal
     {
-        public string GoalDescription { get; set; }
-        public bool Completed { get; set; }
-        public int GoalValue { get; set; }
+        private string _goalDescription;
+        private bool _Completed;
 
-        public Goal(string goalDescription, int goalValue)
+        public Goal(string description)
         {
-            GoalDescription = goalDescription;
-            Completed = false;
-            GoalValue = goalValue;
+            _goalDescription = description;
+            _Completed = false;
         }
 
-        public virtual void Display()
+        public string GoalDescription
         {
-            Console.Write($"[{(Completed ? 'X' : ' ')}] {GoalDescription}");
+            get {return _goalDescription;}
         }
 
-        public virtual void RecordEvent()
+        public bool Completed
         {
-            Completed = true;
-            Console.WriteLine($"Event recorded for: {GoalDescription}. You gained {GoalValue} points!");
+            get{return _Completed;}
+            set {_Completed = value;}
         }
+
+        public abstract int RecordEvent();
+
+        public abstract void Display();
     }
 }

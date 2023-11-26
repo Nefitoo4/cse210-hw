@@ -1,75 +1,111 @@
 using System;
 using System.IO;
-using Develop05;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
-using System.Net.Quic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Develop05
 {
-
     class Program
     {
+        private static List<Goal> goals = new List<Goal>();
+        private static int userScore = 0;
+
         static void Main(string[] args)
         {
+            int choice;
+            do
+            {
+                //Display the menu and get the user's choice
+                choice = Menu.ShowMenu();
+
+                //Perform actions based on user's choice
+                switch (choice)
+                {
+                    case 1:
+                        CreateNewGoal();
+                        break;
+                    case 2:
+                        ListGoals();
+                        break;
+                    case 3:
+                        SaveGoalsAndScore();
+                        break;
+                    case 4:
+                        LoadGoalsAndScore();
+                        break;
+                    case 5:
+                        RecordEvents();
+                        break;
+                    case 6:
+                        //Quit the program
+                        break;
+                }
+            }while(choice != 6);
         }
-        private List<Goal> goals = new List<Goal>();
-        private int userScore = 0;
-        public void CreateNewGoal()
+
+        //Methods
+        private static void CreateNewGoal()
         {
             Console.Write("Enter goal description: ");
+            string goalName = Console.ReadLine();
+
+            Console.Write("Enter a short description of the goal: ");
             string goalDescription = Console.ReadLine();
 
-            Console.Write("Choose goal type (1 for Simple, 2 for Eternal, 3 for Checklist): ");
-            if (int.TryParse(Console.ReadLine(), out int goalType))
+            Console.Write("Enter the amount of points associated with this goal: ");
+            if (int.TryParse(Console.ReadLine(), out int points))
             {
-                Console.Write("Enter points for this goal: ");
-                if (int.TryParse(Console.ReadLine(), out int goalValue))
+            Console.WriteLine("Choose goal type:");
+            Console.WriteLine("Enter 1 for Simple)");
+            Console.WriteLine("Enter 2 for Eternal)");
+            Console.WriteLine("Enter 3 for Checklist)");
+
+            if(int.TryParse(Console.ReadLine(), out int goalType))
+            {
+                Goal newGoal;
+
+                switch(goalType)
                 {
-                    Goal newGoal;
-
-                    switch (goalType)
-                    {
-                        case 1:
-                            newGoal = new SimpleGoal(goalDescription, goalValue);
-                            break;
-                        case 2:
-                            newGoal = new EternalGoal(goalDescription, goalValue);
-                            break;
-                        case 3:
-                            Console.Write("Enter required events for the checklist goal: ");
-                            if (int.TryParse(Console.ReadLine(), out int requiredEvents))
-                            {
-                                newGoal = new ChecklistGoal(goalDescription, goalValue, requiredEvents);
-                            }
-                            else
-                            {
-                                Console.WriteLine("Invalid input for required events. Goal creation failed.");
-                                return;
-                            }
-                            break;
-                        default:
-                            Console.WriteLine("Invalid goal type. Goal creation failed.");
+                    case 1:
+                        newGoal = new SimpleGoal(goalDescription, points);
+                        break;
+                    case 2:
+                        newGoal = new EternalGoal(goalDescription, points);
+                        break;
+                    case 3:
+                        Console.Write("Enter required events for  the checklist goal: ");
+                        if(int.TryParse(Console.ReadLine(), out int requiredEvents))
+                        {
+                            newGoal = new ChecklistGoal(goalDescription, points, requiredEvents);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input for required events. Goal creation failed.");
                             return;
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Invalid goal type. Goal creation failed.");
+                        return;
                     }
-
                     goals.Add(newGoal);
                     Console.WriteLine("Goal created successfully.");
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input for points. Goal creation failed.");
+                    Console.WriteLine("Invalid goal type. Goal creation failed.");
                 }
             }
             else
             {
-                Console.WriteLine("Invalid input for goal type. Goal creation failed.");
+                Console.WriteLine("Invalid input for points. Goal creation failed.");
             }
         }
-        public void RecordEvent()
+        private static void RecordEvents()
         {
-            Console.WriteLine("\nRecording an event for a goal:");
+            Console.WriteLine("\nRecording events for goals:");
 
             if (goals.Count == 0)
             {
@@ -77,69 +113,74 @@ namespace Develop05
                 return;
             }
 
-            Console.WriteLine("Choose a goal to record an event:");
-            for (int i = 0; i < goals.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. ");
-                goals[i].Display();
-                Console.WriteLine();
-            }
-
-            int choice;
+            int goalIndex;
             do
             {
-                Console.Write("Enter your choice: ");
-            } while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > goals.Count);
+                Console.Write("Enter the number of the goal: ");
+            }while (!int.TryParse(Console.ReadLine(), out goalIndex) || goalIndex < 1 || goalIndex > goals.Count);
 
-            goals[choice - 1].RecordEvent();
-            userScore += goals[choice - 1].GoalValue;
+            userScore += goals[goalIndex - 1].RecordEvent();
+            Console.WriteLine("Event recorded successfully.");
         }
 
-        public void ListGoals()
+        private static void ListGoals()
         {
             Console.WriteLine("\nList of Goals:");
             foreach (var goal in goals)
             {
                 goal.Display();
-                Console.WriteLine();
-            }
-        }
-
-        public void ShowScore()
-        {
-            Console.WriteLine($"\nYour current score: {userScore} points");
-        }
-
-        public void SaveGoalsAndScore()
-        {
-            using (StreamWriter writer = new StreamWriter("goals.txt"))
-            {
-                foreach (var goal in goals)
-                {
-                    writer.WriteLine($"{goal.GetType().Name},{goal.GoalDescription},{goal.Completed},{goal.GoalValue}");
-                    if (goal is ChecklistGoal checklistGoal)
-                    {
-                        writer.WriteLine($"{checklistGoal.RequiredEvents},{checklistGoal.CompletedEvents}");
-                    }
-                }
-
-                writer.WriteLine($"Score,{userScore}");
+                Console.WriteLine("");
             }
 
-            Console.WriteLine("\nGoals and score saved successfully.");
+            Console.WriteLine("Press any key to return to the menu...");
+            Console.ReadKey();
         }
 
-        public void LoadGoalsAndScore()
+        private static void SaveGoalsAndScore()
         {
             try
             {
-                using (StreamReader reader = new StreamReader("goals.txt"))
+                const string filePath = "goals.txt";
+
+                if (File.Exists(filePath))
+                {
+                    using (System.IO.StreamWriter file = new System.IO.StreamWriter("goals.txt"))
+                    {
+                        foreach (var goal in goals)
+                        {
+                            file.Write($"{goal.GetType().Name},{goal.GoalDescription},{goal.Completed},{goal.RecordEvent()}");
+                            if(goal is ChecklistGoal checklistGoal)
+                            {
+                                file.Write($", {checklistGoal.requiredEvents}, {checklistGoal.completedEvents}");
+                            }
+
+                            file.WriteLine();
+                        }
+                    }
+
+                    Console.WriteLine("\nGoal and score saved successfully.");
+                }
+                else
+                {
+                    Console.WriteLine("The file 'goals.txt' does not exits.");
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"An error occurred while saving goals and score: {ex.Message}");
+            }
+        }
+        private static void LoadGoalsAndScore()
+        {
+            try
+            {
+                using (System.IO.StreamReader file = new System.IO.StreamReader("goals.txt"))
                 {
                     goals.Clear();
 
-                    while (!reader.EndOfStream)
+                    while (!file.EndOfStream)
                     {
-                        string[] goalData = reader.ReadLine().Split(',');
+                        string[] goalData = file.ReadLine().Split(',');
 
                         switch (goalData[0])
                         {
@@ -155,7 +196,7 @@ namespace Develop05
                                 goals.Add(new ChecklistGoal(goalData[1], int.Parse(goalData[3]), requiredEvents)
                                 {
                                     Completed = bool.Parse(goalData[2]),
-                                    CompletedEvents = completedEvents
+                                    completedEvents = completedEvents
                                 });
                                 break;
                             default:
@@ -169,30 +210,6 @@ namespace Develop05
             {
                 Console.WriteLine($"An error occurred while loading goals and score: {ex.Message}");
             }
-                if (File.Exists("goals.txt"))
-                {
-                    using (StreamReader reader = new StreamReader("goals.txt"))
-                    {
-                        while (!reader.EndOfStream)
-                        {
-                            string[] goalData = reader.ReadLine().Split(',');
-
-                            switch (goalData[0])
-                            {
-                                case "SimpleGoal":
-                                    goals.Add(new SimpleGoal(goalData[1], int.Parse(goalData[3])) { Completed = bool.Parse(goalData[2]) });
-                                    break;
-                                case "EternalGoal":
-                                    goals.Add(new EternalGoal(goalData[1], int.Parse(goalData[3])) { Completed = bool.Parse(goalData[2]) });
-                                    break;
-                                case "ChecklistGoal":
-                                    int requiredEvents = int.Parse(goalData[4]);
-                                    int completedEvents = int.Parse(goalData[5]);
-                                    break;
-                            };
-                        }
-                    }
-                }
-            }
         }
     }
+}

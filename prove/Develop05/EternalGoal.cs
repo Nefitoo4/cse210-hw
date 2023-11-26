@@ -6,16 +6,22 @@ using System.Linq;
 
 namespace Develop05
 {
-    class EternalGoal : Goal
+    public class EternalGoal : Goal
     {
-        public EternalGoal(string goalDescription, int goalValue)
-            : base(goalDescription, goalValue)
+        private int points;
+        public EternalGoal(string description, int points) : base(description)
         {
+            this.points = points;
         }
 
-        public override void RecordEvent()
+        public override int RecordEvent()
         {
-            base.RecordEvent();
+            return points;
+        }
+
+        public override void Display()
+        {
+            Console.WriteLine($"[] {GoalDescription} - {points} points (Eternal)");
         }
     }
 }

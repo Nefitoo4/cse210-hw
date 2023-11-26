@@ -1,31 +1,35 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 
-namespace Conditionals
+namespace Lists
 {    
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Please enter the speed limit: ");
-            int SpeedLimit = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Please enter the speed of the car: ");
-            int CarSpeed = Convert.ToInt32(Console.ReadLine());
-            int DemeritPoints = (CarSpeed - SpeedLimit) / 5;
+            var numbers = new List<int> {1, 2, 3, 4};
+            numbers.Add(1);
+            numbers.AddRange(new int[3] {5, 6, 7});
 
-            if (CarSpeed < SpeedLimit)
+            foreach (var number in numbers)
+                Console.WriteLine(number);
+
+            Console.WriteLine();
+            Console.WriteLine("Index of 1: " + numbers.IndexOf(1));
+            Console.WriteLine("Last Index of 1: " + numbers.LastIndexOf(1));
+
+            Console.WriteLine("Count " + numbers.Count);
+
+            for (var i=0; i<numbers.Count; i++)
             {
-                Console.WriteLine("Ok.");
+                if (numbers[i] == 1)
+                    numbers.Remove(numbers[i]);
             }
-            else if (DemeritPoints > 12)
-            {
-                Console.WriteLine($"{DemeritPoints} Demerit Points - License Suspended.");
-            }
-            else
-            {
-                Console.WriteLine($"{DemeritPoints} Demerit points.");
-            }
+            foreach (var number in numbers)
+                Console.WriteLine(number);
         }
+
     }
 }
