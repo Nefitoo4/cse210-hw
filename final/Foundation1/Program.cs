@@ -1,42 +1,50 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
-class Program
+namespace Foundation1
 {
-    static void Main(string[] args)
+    class Program
     {
-        List<Video> videos = new List<Video>();
-
-        // Create videos and add comments
-        Video video1 = new Video
+        static void Main(string[] args)
         {
-            Title = "C# Basics",
-            Author = "CodingExpert",
-            LengthInSeconds = 300
-        };
+            List<Video> videos = new List<Video>();
 
-        video1.AddComment("User1", "Great video!");
-        video1.AddComment("User2", "Very helpful content.");
-        video1.AddComment("User3", "I have a question.");
+            // Create videos and add comments
+            Video video1 = new Video
+            {
+                Title = "How to make Git configurations",
+                Author = "CodingExpert",
+                LengthInSeconds = 300
+            };
 
-        Video video2 = new Video
-        {
-            Title = "Object-Oriented Programming",
-            Author = "CodeMaster",
-            LengthInSeconds = 450
-        };
+            video1.AddComment("User1", "Great video!");
+            video1.AddComment("User2", "Very helpful content.");
+            video1.AddComment("User3", "I have a question.");
 
-        video2.AddComment("User4", "Awesome explanation!");
-        video2.AddComment("User5", "Clear and concise.");
-        video2.AddComment("User6", "Looking forward to more tutorials.");
+            Video video2 = new Video
+            {
+                Title = "All about .NET Framework",
+                Author = "CodeMaster",
+                LengthInSeconds = 450
+            };
 
-        // Add videos to the list
-        videos.Add(video1);
-        videos.Add(video2);
+            video2.AddComment("User4", "Awesome explanation!");
+            video2.AddComment("User5", "Clear and concise.");
+            video2.AddComment("User6", "Looking forward to more tutorials.");
 
-        // Display information for each video
-        foreach (var video in videos)
-        {
+            // Add videos to the list
+            videos.Add(video1);
+            videos.Add(video2);
 
+            // Display information for each video
+            foreach (var video in videos)
+            {
+                video.DisplayVideoInfo();
+            }
         }
     }
 }

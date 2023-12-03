@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace Foundation1
 {
-    internal class Video
+    public class Video
     {
         public string Title { get; set; }
         public string Author { get; set; }
