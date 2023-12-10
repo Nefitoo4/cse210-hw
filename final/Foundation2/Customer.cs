@@ -8,18 +8,25 @@ namespace Foundation2
 {
     public class Customer
     {
+        private readonly string name;
+        private readonly Address address;
+
         public Customer(string name, Address address)
         {
-            Name = name;
-            Address = address;
+            this.name = name;
+            this.address = address;
         }
-
-        public string Name { get; private set; }
-        public Address Address { get; private set; }
 
         public bool IsInUSA()
         {
-            return Address.IsInUSA();
+            return address.IsInUSA();
         }
+
+        public string GetAddressString()
+        {
+            return address.ToString();
+        }
+
+        public string Name => name;
     }
 }

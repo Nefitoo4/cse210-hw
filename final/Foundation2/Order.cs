@@ -7,38 +7,50 @@ namespace Foundation2
 {
     public class Order
     {
-        public Order(Customer customer, List<Product> products)
+        private readonly List<Product> products;
+        private readonly Customer customer;
+
+        public Order(List<Product> products, Customer customer)
         {
-            Customer = customer;
-            Products = products;
+            this.products = products ?? throw new ArgumentNullException(nameof(products));
+            this.customer = customer ?? throw new ArgumentNullException(nameof(customer));
         }
 
-        public Customer Customer { get; private set; }
-        public List<Product> Products { get; private set; }
-
-        public decimal CalculateTotalPrice()
+        public decimal CalculateTotalCost()
         {
-            decimal totalPrice = Products.Sum(product => product.GetTotalPrice());
-            // Add shipping cost based on customer's location
-            if (Customer.IsInUSA())
+            decimal totalCost = 0;
+
+            foreach (var product in products)
             {
-                totalPrice += 5.0m;
+                totalCost += product.CalculatePrice();
             }
-            else
-            {
-                totalPrice += 35.0m;
-            }
-            return totalPrice;
+
+            totalCost += customer.IsInUSA() ? 5 : 35;
+
+            return totalCost;
         }
 
         public string GetPackingLabel()
         {
-            return string.Join("\n", Products.Select(product => product.ToString()));
+            // Packing label should list the name and product id of each product
+            var packingLabel = "Packing Label:\n";
+
+            foreach (var product in products)
+            {
+                packingLabel += $"{product.Name}, Product ID: {product.ProductId}\n";
+            }
+
+            return packingLabel;
         }
 
         public string GetShippingLabel()
         {
-            return $"{Customer.Name}\n{Customer.Address.ToString()}";
+            // Shipping label should list the name and address of the customer
+            var shippingLabel = "Shipping Label:\n";
+            shippingLabel += $"Customer: {customer.Name}\n";
+            shippingLabel += customer.GetAddressString();
+
+            return shippingLabel;
         }
     }
 }

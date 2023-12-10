@@ -9,19 +9,17 @@ namespace Foundation1
 {
     public class Video
     {
-        public string Title { get; set; }
-        public string Author { get; set; }
-        public int LengthInSeconds { get; set; }
-        private List<Comment> comments = new List<Comment>();
+        private readonly string title;
+        private readonly string author;
+        private readonly int lengthInSeconds;
+        private readonly List<Comment> comments;
 
-        public void AddComment(string commenterName, string commentText)
+        public Video(string title, string author, int lengthInSeconds)
         {
-            Comment comment = new Comment
-            {
-                CommenterName = commenterName,
-                CommentText = commentText
-            };
-            comments.Add(comment);
+            this.title = title;
+            this.author = author;
+            this.lengthInSeconds = lengthInSeconds;
+            this.comments = new List<Comment>();
         }
 
         public int GetNumberOfComments()
@@ -29,20 +27,19 @@ namespace Foundation1
             return comments.Count;
         }
 
-        public void DisplayVideoInfo()
+        public void AddComment(Comment comment)
         {
-            Console.WriteLine($"Title: {Title}");
-            Console.WriteLine($"Author: {Author}");
-            Console.WriteLine($"Length: {LengthInSeconds} seconds");
-            Console.WriteLine($"Number of Comments: {GetNumberOfComments()}");
+            comments.Add(comment);
+        }
 
-            Console.WriteLine("Comments:");
-            foreach (var comment in comments)
-            {
-                Console.WriteLine($"  {comment.CommenterName}: {comment.CommentText}");
-            }
+        public override string ToString()
+        {
+            return $"{title} by {author} ({lengthInSeconds} seconds)";
+        }
 
-            Console.WriteLine("\n-----------------------------\n");
+        public IEnumerable<Comment> GetComments()
+        {
+            return comments;
         }
     }
 }

@@ -9,24 +9,19 @@ namespace Foundation3
 {
     public class Lecture : Event
     {
-        public Lecture(string title, string description, DateTime date, string time, Address address, string speaker, int capacity)
-                : base(title, description, date, time, address)
-        {
-            Speaker = speaker;
-            Capacity = capacity;
-        }
+        private readonly string speaker;
+        private readonly int capacity;
 
-        public string Speaker { get; private set; }
-        public int Capacity { get; private set; }
+        public Lecture(string title, string description, DateTime date, string time, Address address, string speaker, int capacity)
+            : base(title, description, date, time, address)
+        {
+            this.speaker = speaker;
+            this.capacity = capacity;
+        }
 
         public override string GetFullDetails()
         {
-            return $"{base.GetFullDetails()}\nType: Lecture\nSpeaker: {Speaker}\nCapacity: {Capacity}";
-        }
-
-        public override string GetShortDescription()
-        {
-            return $"Type: Lecture\nTitle: {Title}\nDate: {Date.ToShortDateString()}";
+            return $"{base.GetFullDetails()}\nType: Lecture\nSpeaker: {speaker}\nCapacity: {capacity}";
         }
     }
 }

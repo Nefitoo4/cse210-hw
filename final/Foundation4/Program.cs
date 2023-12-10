@@ -9,23 +9,22 @@ namespace Foundation4
         static void Main(string[] args)
         {
             // Create activities
-            Running runningActivity = new Running(new DateTime(2022, 11, 3), 30, 3.0);
-            Cycling cyclingActivity = new Cycling(new DateTime(2022, 11, 3), 30, 20.0);
-            Swimming swimmingActivity = new Swimming(new DateTime(2022, 11, 3), 30, 20);
+            Activity runningActivity = new Running(new DateTime(2023, 11, 15), 30, 3.0);
+            Activity bicycleActivity = new StationaryBicycle(new DateTime(2023, 11, 16), 45, 20.0);
+            Activity swimmingActivity = new Swimming(new DateTime(2023, 11, 17), 40, 20);
 
-            // Put each activity in the same list
-            List<Activity> activities = new List<Activity>
-            {
-                runningActivity,
-                cyclingActivity,
-                swimmingActivity
-            };
+            // Display activity summaries
+            DisplayActivitySummary(runningActivity);
+            DisplayActivitySummary(bicycleActivity);
+            DisplayActivitySummary(swimmingActivity);
+        }
 
-            // Iterate through the list and call GetSummary on each item
-            foreach (var activity in activities)
-            {
-                Console.WriteLine(activity.GetSummary());
-            }
+        static void DisplayActivitySummary(Activity activity)
+        {
+            Console.WriteLine(activity.GetSummary());
+            Console.WriteLine(new string('-', 50)); // Separator line
+            Console.WriteLine("Press any key to see the outputs");
+            Console.ReadLine();
         }
     }
 }

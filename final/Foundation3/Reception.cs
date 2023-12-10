@@ -9,22 +9,17 @@ namespace Foundation3
 {
     public class Reception : Event
     {
-        public Reception(string title, string description, DateTime date, string time, Address address, string rsvpEmail)
-                : base(title, description, date, time, address)
-        {
-            RSVPEmail = rsvpEmail;
-        }
+        private readonly string rsvpEmail;
 
-        public string RSVPEmail { get; private set; }
+        public Reception(string title, string description, DateTime date, string time, Address address, string rsvpEmail)
+            : base(title, description, date, time, address)
+        {
+            this.rsvpEmail = rsvpEmail;
+        }
 
         public override string GetFullDetails()
         {
-            return $"{base.GetFullDetails()}\nType: Reception\nRSVP Email: {RSVPEmail}";
-        }
-
-        public override string GetShortDescription()
-        {
-            return $"Type: Reception\nTitle: {Title}\nDate: {Date.ToShortDateString()}";
+            return $"{base.GetFullDetails()}\nType: Reception\nRSVP Email: {rsvpEmail}";
         }
     }
 }

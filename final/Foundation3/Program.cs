@@ -4,40 +4,45 @@ using System.Net;
 
 namespace Foundation3
 {
-class Program
-{
-    static void Main(string[] args)
+    class Program
     {
-            // Create addresses
-            Address address1 = new Address("123 Main St", "Cityville", "CA", "USA");
-            Address address2 = new Address("456 Oak St", "Townsville", "NY", "Canada");
-
+        static void Main(string[] args)
+        {
             // Create events
-            Event genericEvent = new Event("Generic Event", "A generic event description", DateTime.Now, "7:00 PM", address1);
-            Lecture lectureEvent = new Lecture("Programming Lecture", "Learn about programming", DateTime.Now.AddDays(7), "6:30 PM", address1, "John Doe", 50);
-            Reception receptionEvent = new Reception("Networking Reception", "Network with professionals", DateTime.Now.AddDays(14), "8:00 PM", address2, "rsvp@example.com");
-            OutdoorGathering outdoorEvent = new OutdoorGathering("Community Picnic", "Enjoy a day in the park", DateTime.Now.AddDays(21), "12:00 PM", address2, "Sunny with a high of 75°F");
+            Address eventAddress = new Address("123 Main St", "Cityville", "CA", "USA");
 
-            // Display information for each event
-            Console.WriteLine("Generic Event:");
-            Console.WriteLine($"Standard Details:\n{genericEvent.GetStandardDetails()}\n");
-            Console.WriteLine($"Full Details:\n{genericEvent.GetFullDetails()}\n");
-            Console.WriteLine($"Short Description:\n{genericEvent.GetShortDescription()}\n");
+            Event genericEvent = new Event("Generic Event", "A generic event", DateTime.Now, "10:00 AM", eventAddress);
+            Lecture lectureEvent = new Lecture("Tech Talk", "Exciting tech discussion", DateTime.Now, "2:00 PM", eventAddress, "John Doe", 100);
+            Reception receptionEvent = new Reception("Networking Reception", "Socialize and network", DateTime.Now, "6:00 PM", eventAddress, "rsvp@example.com");
+            OutdoorGathering outdoorEvent = new OutdoorGathering("Summer Picnic", "Fun in the sun", DateTime.Now, "12:00 PM", eventAddress, "Weather permitting");
 
-            Console.WriteLine("Programming Lecture:");
-            Console.WriteLine($"Standard Details:\n{lectureEvent.GetStandardDetails()}\n");
-            Console.WriteLine($"Full Details:\n{lectureEvent.GetFullDetails()}\n");
-            Console.WriteLine($"Short Description:\n{lectureEvent.GetShortDescription()}\n");
-
-            Console.WriteLine("Networking Reception:");
-            Console.WriteLine($"Standard Details:\n{receptionEvent.GetStandardDetails()}\n");
-            Console.WriteLine($"Full Details:\n{receptionEvent.GetFullDetails()}\n");
-            Console.WriteLine($"Short Description:\n{receptionEvent.GetShortDescription()}\n");
-
-            Console.WriteLine("Community Picnic:");
-            Console.WriteLine($"Standard Details:\n{outdoorEvent.GetStandardDetails()}\n");
-            Console.WriteLine($"Full Details:\n{outdoorEvent.GetFullDetails()}\n");
-            Console.WriteLine($"Short Description:\n");
+            // Display event details
+            DisplayEventDetails(genericEvent);
+            DisplayEventDetails(lectureEvent);
+            DisplayEventDetails(receptionEvent);
+            DisplayEventDetails(outdoorEvent);
         }
+
+        static void DisplayEventDetails(Event eventItem)
+        {
+            Console.WriteLine($"Event Details for {eventItem.GetType().Name}:\n");
+
+            Console.WriteLine("Standard Details:");
+            Console.WriteLine(eventItem.GetStandardDetails());
+            Console.WriteLine();
+
+            Console.WriteLine("Full Details:");
+            Console.WriteLine(eventItem.GetFullDetails());
+            Console.WriteLine();
+
+            Console.WriteLine("Short Description:");
+            Console.WriteLine(eventItem.GetShortDescription());
+            Console.WriteLine();
+
+            Console.WriteLine(new string('-', 50)); // Separator line
+            Console.WriteLine("Press Enter to Display the outputs");
+            Console.ReadLine();
+        }
+    
     }
 }

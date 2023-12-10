@@ -9,27 +9,25 @@ namespace Foundation2
 {
     public class Product
     {
+        private readonly string name;
+        private readonly string productId;
+        private readonly decimal price;
+        private readonly int quantity;
+
         public Product(string name, string productId, decimal price, int quantity)
         {
-            Name = name;
-            ProductId = productId;
-            Price = price;
-            Quantity = quantity;
+            this.name = name;
+            this.productId = productId;
+            this.price = price;
+            this.quantity = quantity;
         }
 
-        public string Name { get; private set; }
-        public string ProductId { get; private set; }
-        public decimal Price { get; private set; }
-        public int Quantity { get; private set; }
-
-        public decimal GetTotalPrice()
+        public decimal CalculatePrice()
         {
-            return Price * Quantity;
+            return price * quantity;
         }
 
-        public override string ToString()
-        {
-            return $"Name: {Name}, Product ID: {ProductId}, Price: {Price:C}, Quantity: {Quantity}";
-        }
+        public string Name => name;
+        public string ProductId => productId;
     }
 }

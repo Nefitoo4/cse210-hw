@@ -6,28 +6,24 @@ using System.Threading.Tasks;
 
 namespace Foundation4
 {
-    public class Cycling : Activity
+    public class StationaryBicycle : Activity
     {
-        public Cycling(DateTime date, int minutes, double speed) : base(date, minutes)
-        {
-            Speed = speed;
-        }
+        private readonly double speed;
 
-        public double Speed { get; private set; }
+        public StationaryBicycle(DateTime date, int durationMinutes, double speed)
+            : base(date, durationMinutes)
+        {
+            this.speed = speed;
+        }
 
         public override double GetSpeed()
         {
-            return Speed;
-        }
-
-        public override double GetPace()
-        {
-            return 60.0 / Speed;
+            return speed;
         }
 
         public override string GetSummary()
         {
-            return $"{base.GetSummary()} - Speed: {Speed:F1} kph, Pace: {GetPace():F1} min per km";
+            return $"{base.GetSummary()} - Speed: {speed} mph";
         }
     }
 }

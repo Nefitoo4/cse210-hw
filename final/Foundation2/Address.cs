@@ -9,27 +9,28 @@ namespace Foundation2
 {
     public class Address
     {
-        public Address(string street, string city, string state, string country)
-        {
-            Street = street;
-            City = city;
-            State = state;
-            Country = country;
-        }
+        private readonly string streetAddress;
+        private readonly string city;
+        private readonly string state;
+        private readonly string country;
 
-        public string Street { get; private set; }
-        public string City { get; private set; }
-        public string State { get; private set; }
-        public string Country { get; private set; }
+        public Address(string streetAddress, string city, string state, string country)
+        {
+            this.streetAddress = streetAddress;
+            this.city = city;
+            this.state = state;
+            this.country = country;
+        }
 
         public bool IsInUSA()
         {
-            return Country.ToLower() == "usa";
+            return country.Equals("USA", StringComparison.OrdinalIgnoreCase);
         }
 
         public override string ToString()
         {
-            return $"{Street}\n{City}, {State}, {Country}";
+            // Return all fields together in one string with newline characters where appropriate
+            return $"Address: {streetAddress}, {city}, {state}, {country}\n";
         }
     }
 }

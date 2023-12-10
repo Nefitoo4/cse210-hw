@@ -11,39 +11,42 @@ namespace Foundation1
     {
         static void Main(string[] args)
         {
-            List<Video> videos = new List<Video>();
+            // Create videos and comments
+            Video video1 = new Video("Introduction to C#", "CodingGuru", 300);
+            video1.AddComment(new Comment("User1", "Great video!"));
+            video1.AddComment(new Comment("User2", "Very helpful."));
+            video1.AddComment(new Comment("User3", "I learned a lot."));
 
-            // Create videos and add comments
-            Video video1 = new Video
+            Video video2 = new Video("Python Basics Tutorial", "PythonMaster", 240);
+            video2.AddComment(new Comment("User1", "Nice explanation."));
+            video2.AddComment(new Comment("User4", "Could you cover advanced topics too?"));
+
+            Video video3 = new Video("JavaScript Fundamentals", "JSExpert", 400);
+            video3.AddComment(new Comment("User2", "Awesome content."));
+            video3.AddComment(new Comment("User5", "I have a question about closures."));
+
+            // Put each video in the list
+            List<Video> videos = new List<Video>
             {
-                Title = "How to make Git configurations",
-                Author = "CodingExpert",
-                LengthInSeconds = 300
+                video1,
+                video2,
+                video3
             };
 
-            video1.AddComment("User1", "Great video!");
-            video1.AddComment("User2", "Very helpful content.");
-            video1.AddComment("User3", "I have a question.");
-
-            Video video2 = new Video
-            {
-                Title = "All about .NET Framework",
-                Author = "CodeMaster",
-                LengthInSeconds = 450
-            };
-
-            video2.AddComment("User4", "Awesome explanation!");
-            video2.AddComment("User5", "Clear and concise.");
-            video2.AddComment("User6", "Looking forward to more tutorials.");
-
-            // Add videos to the list
-            videos.Add(video1);
-            videos.Add(video2);
-
-            // Display information for each video
+            // Iterate through the list and display video details and comments
             foreach (var video in videos)
             {
-                video.DisplayVideoInfo();
+                Console.WriteLine($"Title: {video.ToString()}");
+                Console.WriteLine($"Number of Comments: {video.GetNumberOfComments()}");
+
+                foreach (var comment in video.GetComments())
+                {
+                    Console.WriteLine(comment.ToString());
+                }
+
+                Console.WriteLine(); // Add a newline for better readability
+                Console.WriteLine("Press enter to see the outputs");
+                Console.ReadLine(); // Wait for user input before closing
             }
         }
     }

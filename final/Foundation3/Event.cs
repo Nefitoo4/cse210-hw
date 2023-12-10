@@ -9,24 +9,24 @@ namespace Foundation3
 {
     public class Event
     {
+        private readonly string title;
+        private readonly string description;
+        private readonly DateTime date;
+        private readonly string time;
+        private readonly Address address;
+
         public Event(string title, string description, DateTime date, string time, Address address)
         {
-            Title = title;
-            Description = description;
-            Date = date;
-            Time = time;
-            Address = address;
+            this.title = title;
+            this.description = description;
+            this.date = date;
+            this.time = time;
+            this.address = address;
         }
-
-        public string Title { get; private set; }
-        public string Description { get; private set; }
-        public DateTime Date { get; private set; }
-        public string Time { get; private set; }
-        public Address Address { get; private set; }
 
         public virtual string GetStandardDetails()
         {
-            return $"Title: {Title}\nDescription: {Description}\nDate: {Date.ToShortDateString()}\nTime: {Time}\nAddress: {Address}";
+            return $"Title: {title}\nDescription: {description}\nDate: {date.ToShortDateString()}\nTime: {time}\nAddress: {address}";
         }
 
         public virtual string GetFullDetails()
@@ -36,7 +36,7 @@ namespace Foundation3
 
         public virtual string GetShortDescription()
         {
-            return $"Type: Generic Event\nTitle: {Title}\nDate: {Date.ToShortDateString()}";
+            return $"Type: Generic Event\nTitle: {title}\nDate: {date.ToShortDateString()}";
         }
     }
 }

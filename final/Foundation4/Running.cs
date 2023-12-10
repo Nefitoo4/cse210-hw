@@ -8,31 +8,32 @@ namespace Foundation4
 {
     public class Running : Activity
     {
-        public Running(DateTime date, int minutes, double distance) : base(date, minutes)
-        {
-            Distance = distance;
-        }
+        private readonly double distance;
 
-        public double Distance { get; private set; }
+        public Running(DateTime date, int durationMinutes, double distance)
+            : base(date, durationMinutes)
+        {
+            this.distance = distance;
+        }
 
         public override double GetDistance()
         {
-            return Distance;
+            return distance;
         }
 
         public override double GetSpeed()
         {
-            return Distance / (Minutes / 60.0);
+            return distance / (durationMinutes / 60.0);
         }
 
         public override double GetPace()
         {
-            return Minutes / Distance;
+            return durationMinutes / distance;
         }
 
         public override string GetSummary()
         {
-            return $"{base.GetSummary()} - Distance: {Distance} miles, Speed: {GetSpeed():F1} mph, Pace: {GetPace():F1} min per mile";
+            return $"{base.GetSummary()} - Distance {distance} miles, Speed {GetSpeed()} mph, Pace: {GetPace()} min per mile";
         }
     }
 }

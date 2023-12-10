@@ -9,36 +9,33 @@ namespace Foundation4
 {
     public class Activity
     {
-        public Activity(DateTime date, int minutes)
-        {
-            Date = date;
-            Minutes = minutes;
-        }
+        protected readonly DateTime date;
+        protected readonly int durationMinutes;
 
-        public DateTime Date { get; private set; }
-        public int Minutes { get; private set; }
+        public Activity(DateTime date, int durationMinutes)
+        {
+            this.date = date;
+            this.durationMinutes = durationMinutes;
+        }
 
         public virtual double GetDistance()
         {
-            // Base class has no specific distance calculation
-            return 0.0;
+            return 0; // Default implementation (override in derived classes)
         }
 
         public virtual double GetSpeed()
         {
-            // Base class has no specific speed calculation
-            return 0.0;
+            return 0; // Default implementation (override in derived classes)
         }
 
         public virtual double GetPace()
         {
-            // Base class has no specific pace calculation
-            return 0.0;
+            return 0; // Default implementation (override in derived classes)
         }
 
         public virtual string GetSummary()
         {
-            return $"{Date.ToShortDateString()} - {GetType().Name} ({Minutes} min)";
+            return $"{date.ToShortDateString()} {GetType().Name} ({durationMinutes} min)";
         }
     }
 }

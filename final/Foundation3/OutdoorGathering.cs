@@ -9,22 +9,17 @@ namespace Foundation3
 {
     public class OutdoorGathering : Event
     {
-        public OutdoorGathering(string title, string description, DateTime date, string time, Address address, string weatherForecast)
+        private readonly string weatherStatement;
+
+        public OutdoorGathering(string title, string description, DateTime date, string time, Address address, string weatherStatement)
             : base(title, description, date, time, address)
         {
-            WeatherForecast = weatherForecast;
+            this.weatherStatement = weatherStatement;
         }
-
-        public string WeatherForecast { get; private set; }
 
         public override string GetFullDetails()
         {
-            return $"{base.GetFullDetails()}\nType: Outdoor Gathering\nWeather Forecast: {WeatherForecast}";
-        }
-
-        public override string GetShortDescription()
-        {
-            return $"Type: Outdoor Gathering\nTitle: {Title}\nDate: {Date.ToShortDateString()}";
+            return $"{base.GetFullDetails()}\nType: Outdoor Gathering\nWeather Statement: {weatherStatement}";
         }
     }
 }
